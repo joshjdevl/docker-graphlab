@@ -16,3 +16,5 @@ RUN mkdir /graphlab && git clone https://github.com/graphlab-code/graphlab.git
 RUN cd /graphlab && ./configure
 RUN cd /graphlab/release && make -j 2
 RUN cd /graphlab/release && make install
+RUN apt-get -y install python-dev python-pip
+RUN pip install GraphLab-Create
