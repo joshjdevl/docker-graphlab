@@ -13,4 +13,6 @@ RUN echo "root:josh" | chpasswd
 RUN apt-get -y install gcc g++ build-essential libopenmpi-dev openmpi-bin default-jdk cmake zlib1g-dev git
 
 RUN mkdir /graphlab && git clone https://github.com/graphlab-code/graphlab.git
-#RUN cd /graphlab/graphlab && ./configure
+RUN cd /graphlab && ./configure
+RUN cd /graphlab/release && make -j 2
+RUN cd /graphlab/release && make install
