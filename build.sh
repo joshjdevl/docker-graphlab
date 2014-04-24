@@ -1,1 +1,1 @@
-sudo docker build -t joshjdevl/ndnsim .
+sudo docker build -t joshjdevl/graphlab .
