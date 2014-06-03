@@ -16,11 +16,16 @@ RUN mkdir /var/run/sshd
 RUN /usr/sbin/sshd
 RUN echo "root:josh" | chpasswd
 
-RUN apt-fast -y install gcc g++ build-essential libopenmpi-dev openmpi-bin default-jdk cmake zlib1g-dev git
+RUN apt-fast -y install gcc g++ build-essential libopenmpi-dev openmpi-bin default-jdk cmake zlib1g-dev git vim
+RUN apt-fast -y install python-dev python-pip
 
 RUN mkdir /graphlab && git clone https://github.com/graphlab-code/graphlab.git
+ADD CMakeLists.txt.patch /graphlab/CMakeLists.txt.patch
+RUN cd /graphlab && patch < CMakeLists.txt.patch
 RUN cd /graphlab && ./configure
+RUN pip install GraphLab-Create
+
 RUN cd /graphlab/release && make -j 2
 RUN cd /graphlab/release && make install
-RUN apt-get -y install python-dev python-pip
-RUN pip install GraphLab-Create
+
+RUN pip install --upgrade graphlab-create
